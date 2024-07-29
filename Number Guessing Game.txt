@@ -1,0 +1,54 @@
+import java.util.*;
+
+public class NumberGuessingGame {
+    public static void main(String args[]) {
+        
+        var new_game = new Guesser();
+        System.out.println(new_game.Game_start());
+        
+    }
+    
+    public static class Guesser {
+        
+        //PIVs
+        int guess, score, max, num;
+        String result;
+        
+        //Methods
+        private String Game_start() {
+            
+            Random rand = new Random();
+            max = rand.nextInt(11);
+            if (max == 0) {max = 1;}
+            max *= 10;
+            
+            num = rand.nextInt(max + 1);
+            
+            score = 0;
+            
+            while (score < 6) {
+                score++;
+                
+                guess = Guess();
+                if (guess == num) {
+                    result = "Congratulations! You guessed the number in " + score +" tries!";
+                    return result;
+                }
+                System.out.print("Incorrect. ");
+                if (guess > num) {System.out.println("Too High.\n");}
+                if (guess < num) {System.out.println("Too Low.\n");}
+            }
+            
+            result = "You did not guess the number. It was " + num + ".";
+            return result;
+        }
+        
+        public int Guess() {
+            
+            Scanner myObj = new Scanner(System.in);
+            System.out.print("Guess a number from 1 to " + max + ": ");
+            int output = myObj.nextInt();
+            return output;
+        }
+    }
+}
